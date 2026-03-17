@@ -2,19 +2,19 @@ from __future__ import annotations
 
 LOCATIONS = [
     {
-        "name": "Birthplace",
+        "name": "Gjøl",
         "latitude": 57.0684,
         "longitude": 9.7199,
     },
     {
-        "name": "Last residence before Aalborg",
+        "name": "Hanstholm",
         "latitude": 57.1155,
         "longitude": 8.6172,
     },
     {
-        "name": "Aalborg",
-        "latitude": 57.0488,
-        "longitude": 9.9217,
+        "name": "Frederikshavn",
+        "latitude": 57.4407,
+        "longitude": 10.5366,
     },
 ]
 
