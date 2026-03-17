@@ -3,6 +3,7 @@ name: Weather Pipeline
 on:
   workflow_dispatch:
   schedule:
+    # 19:00 UTC = 20:00 Danish time during standard time
     - cron: "0 19 * * *"
 
 permissions:
@@ -11,13 +12,15 @@ permissions:
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.1.0
         with:
           python-version: "3.11"
 
@@ -31,10 +34,10 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python run_pipeline.py
 
-      - name: Commit updated outputs
+      - name: Commit updated files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add data/weather.db docs/index.html outputs/
+          git add data/weather.db docs/index.html docs/data.json outputs/
           git diff --cached --quiet || git commit -m "Automated weather update"
           git push
