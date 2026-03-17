@@ -77,27 +77,31 @@ def generate_poem(conn: sqlite3.Connection, model: str) -> str:
     weather_text = "\n".join(weather_lines)
 
     prompt = f"""
-You are writing a short, slightly humorous weather poem.
+You are writing a short bilingual weather poem with humor.
 
 Use this forecast data for tomorrow:
 {weather_text}
 
-Write a short poem that:
-1. compares the weather in the three locations,
-2. describes the differences clearly,
-3. suggests where it would be nicest to be tomorrow,
-4. evaluates which location would be best specifically for moose hunting,
-5. includes a light, playful, slightly ironic tone,
-6. is bilingual: first English, then Danish,
-7. is concise and poetic (not too long),
-8. clearly states both:
-   - the best place overall,
-   - and the best place for moose hunting.
+Write one short poem in TWO parts:
+- first in English
+- then in Danish
 
-Moose hunting references should be humorous and based on weather conditions 
-(e.g. visibility, rain, wind, comfort), not technical hunting advice.
+Requirements:
+1. Compare the weather in the three locations.
+2. Mention the differences in temperature, rain, wind, clouds, or humidity.
+3. Clearly say which location would be nicest to be in tomorrow for moose hunting
+5. The moose hunting part must be humorous, playful, and based only on weather conditions
+   such as visibility, mud, wind, comfort, and whether an elk would also prefer the place.
+6. Keep the tone warm, witty, and slightly absurd.
+7. Do not give real hunting advice.
+8. Be concise: around 8–12 lines total.
+9. Make the ending memorable and funny.
+10. Return plain text only.
 
-Return plain text only.
+Important:
+- The poem must explicitly “best for moose hunting”.
+- Do not be generic.
+- Do not only describe the weather; make it sound like an actual poem.
 """.strip()
 
     client = Groq(api_key=api_key)
