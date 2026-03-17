@@ -77,18 +77,25 @@ def generate_poem(conn: sqlite3.Connection, model: str) -> str:
     weather_text = "\n".join(weather_lines)
 
     prompt = f"""
-You are writing a short creative weather poem.
+You are writing a short, slightly humorous weather poem.
 
 Use this forecast data for tomorrow:
 {weather_text}
 
 Write a short poem that:
 1. compares the weather in the three locations,
-2. describes the differences,
+2. describes the differences clearly,
 3. suggests where it would be nicest to be tomorrow,
-4. is bilingual: first English, then Danish,
-5. is concise, warm, and slightly poetic,
-6. clearly mentions the best location for tomorrow.
+4. evaluates which location would be best specifically for moose hunting,
+5. includes a light, playful, slightly ironic tone,
+6. is bilingual: first English, then Danish,
+7. is concise and poetic (not too long),
+8. clearly states both:
+   - the best place overall,
+   - and the best place for moose hunting.
+
+Moose hunting references should be humorous and based on weather conditions 
+(e.g. visibility, rain, wind, comfort), not technical hunting advice.
 
 Return plain text only.
 """.strip()
