@@ -1,0 +1,29 @@
+[
+    {
+        "location_name": "Aalborg",
+        "forecast_date": "2026-03-18",
+        "avg_temp": 8.7,
+        "total_precipitation": 0.0,
+        "avg_wind_speed": 16.9,
+        "avg_cloud_cover": 86.5,
+        "avg_humidity": 80.8
+    },
+    {
+        "location_name": "Birthplace",
+        "forecast_date": "2026-03-18",
+        "avg_temp": 8.0,
+        "total_precipitation": 0.0,
+        "avg_wind_speed": 18.6,
+        "avg_cloud_cover": 85.7,
+        "avg_humidity": 86.0
+    },
+    {
+        "location_name": "Last residence before Aalborg",
+        "forecast_date": "2026-03-18",
+        "avg_temp": 8.1,
+        "total_precipitation": 0.0,
+        "avg_wind_speed": 21.5,
+        "avg_cloud_cover": 74.7,
+        "avg_humidity": 89.7
+    }
+]
