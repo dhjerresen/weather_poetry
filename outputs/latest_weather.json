@@ -18,6 +18,33 @@
         "avg_humidity": 86.0
     },
     {
+        "location_name": "Frederikshavn",
+        "forecast_date": "2026-03-18",
+        "avg_temp": 8.0,
+        "total_precipitation": 0.0,
+        "avg_wind_speed": 19.4,
+        "avg_cloud_cover": 90.5,
+        "avg_humidity": 87.8
+    },
+    {
+        "location_name": "Gjøl",
+        "forecast_date": "2026-03-18",
+        "avg_temp": 8.4,
+        "total_precipitation": 0.0,
+        "avg_wind_speed": 17.8,
+        "avg_cloud_cover": 86.6,
+        "avg_humidity": 87.3
+    },
+    {
+        "location_name": "Hanstholm",
+        "forecast_date": "2026-03-18",
+        "avg_temp": 8.3,
+        "total_precipitation": 0.0,
+        "avg_wind_speed": 21.5,
+        "avg_cloud_cover": 72.1,
+        "avg_humidity": 90.0
+    },
+    {
         "location_name": "Last residence before Aalborg",
         "forecast_date": "2026-03-18",
         "avg_temp": 8.1,
