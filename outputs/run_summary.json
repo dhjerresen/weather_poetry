@@ -1,0 +1,10 @@
+{
+    "timestamp": "2026-03-17T20:59:56.331488+00:00",
+    "weather_rows_fetched": 69,
+    "sql_inserted": 69,
+    "locations": [
+        "Frederikshavn",
+        "Gjøl",
+        "Hanstholm"
+    ]
+}

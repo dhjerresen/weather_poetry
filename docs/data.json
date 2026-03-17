@@ -1,0 +1,33 @@
+{
+    "updated_at": "2026-03-17T20:59:56.331396+00:00",
+    "poem": "In Denmark's lands, three towns abide, \nFrederikshavn, Gjøl, and Hanstholm side by side, \nsimilar temps, no rain in sight, \nbut winds and clouds that dance with different might. \nGjøl's the warmest, with a gentle breeze, \nbest for moose hunting, if you please, \nless cloud cover means you'll spot your prey, \nand a moose might just prefer it that way.\n\nI Danmarks land, tre byer bor, \nFrederikshavn, Gjøl og Hanstholm i samme chor, \nGjøl er varmest, med en blid brise, \nbedst for elgjagt, hvis du vil lykkes, \nmindre skydække giver bedre sigte, \nog en elg måske også foretrækker det, \nså tag til Gjøl, og held og lykke til, \ndu får måske selv et elg-smil.",
+    "weather": [
+        {
+            "location_name": "Frederikshavn",
+            "forecast_date": "2026-03-18",
+            "avg_temp": 8.0,
+            "total_precipitation": 0.0,
+            "avg_wind_speed": 19.4,
+            "avg_cloud_cover": 90.5,
+            "avg_humidity": 87.8
+        },
+        {
+            "location_name": "Gjøl",
+            "forecast_date": "2026-03-18",
+            "avg_temp": 8.5,
+            "total_precipitation": 0.0,
+            "avg_wind_speed": 17.8,
+            "avg_cloud_cover": 86.6,
+            "avg_humidity": 87.3
+        },
+        {
+            "location_name": "Hanstholm",
+            "forecast_date": "2026-03-18",
+            "avg_temp": 8.2,
+            "total_precipitation": 0.0,
+            "avg_wind_speed": 21.5,
+            "avg_cloud_cover": 72.1,
+            "avg_humidity": 90.0
+        }
+    ]
+}
