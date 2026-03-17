@@ -1,39 +1,43 @@
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
+import openmeteo_requests
 import pandas as pd
 import requests_cache
 from retry_requests import retry
-import openmeteo_requests
 
-from config import LATITUDES, LONGITUDES, FORECAST_DAYS
+from config import FORECAST_DAYS, HOURLY_VARIABLES, LOCATIONS
 
 BASE_URL = "https://api.open-meteo.com/v1/forecast"
 
 
 def build_weather_params() -> dict[str, Any]:
     """
-    Build the Open-Meteo API parameters for multiple locations.
+    Build Open-Meteo parameters for all configured locations.
     """
     return {
-        "latitude": LATITUDES,
-        "longitude": LONGITUDES,
-        "hourly": [
-            "wind_speed_10m",
-            "cloud_cover",
-            "temperature_2m",
-            "relative_humidity_2m",
-            "precipitation",
-        ],
+        "latitude": [location["latitude"] for location in LOCATIONS],
+        "longitude": [location["longitude"] for location in LOCATIONS],
+        "hourly": HOURLY_VARIABLES,
         "forecast_days": FORECAST_DAYS,
+        "timezone": "auto",
     }
+
+
+def tomorrow_date_str() -> str:
+    """
+    Return tomorrow's date in YYYY-MM-DD format (UTC-based).
+    """
+    tomorrow = datetime.now(timezone.utc).date() + timedelta(days=1)
+    return tomorrow.isoformat()
 
 
 def fetch_weather() -> list[dict[str, Any]]:
     """
-    Fetch hourly weather data from Open-Meteo for multiple locations
-    and return them as cleaned dictionaries.
+    Fetch hourly weather data for all configured locations and return
+    cleaned rows for tomorrow only.
     """
     cache_session = requests_cache.CachedSession(".cache", expire_after=3600)
     retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
@@ -45,19 +49,13 @@ def fetch_weather() -> list[dict[str, Any]]:
     if not responses:
         raise RuntimeError("No response returned from Open-Meteo API.")
 
-    weather_data: list[dict[str, Any]] = []
+    target_date = tomorrow_date_str()
+    all_rows: list[dict[str, Any]] = []
 
-    for response in responses:
+    for location, response in zip(LOCATIONS, responses):
         hourly = response.Hourly()
         if hourly is None:
             continue
-
-        # The order must match params["hourly"]
-        hourly_wind_speed_10m = hourly.Variables(0).ValuesAsNumpy()
-        hourly_cloud_cover = hourly.Variables(1).ValuesAsNumpy()
-        hourly_temperature_2m = hourly.Variables(2).ValuesAsNumpy()
-        hourly_relative_humidity_2m = hourly.Variables(3).ValuesAsNumpy()
-        hourly_precipitation = hourly.Variables(4).ValuesAsNumpy()
 
         hourly_data = {
             "time": pd.date_range(
@@ -66,39 +64,41 @@ def fetch_weather() -> list[dict[str, Any]]:
                 freq=pd.Timedelta(seconds=hourly.Interval()),
                 inclusive="left",
             ),
-            "wind_speed_10m": hourly_wind_speed_10m,
-            "cloud_cover": hourly_cloud_cover,
-            "temperature_2m": hourly_temperature_2m,
-            "relative_humidity_2m": hourly_relative_humidity_2m,
-            "precipitation": hourly_precipitation,
+            "temperature_2m": hourly.Variables(0).ValuesAsNumpy(),
+            "precipitation": hourly.Variables(1).ValuesAsNumpy(),
+            "wind_speed_10m": hourly.Variables(2).ValuesAsNumpy(),
+            "cloud_cover": hourly.Variables(3).ValuesAsNumpy(),
+            "relative_humidity_2m": hourly.Variables(4).ValuesAsNumpy(),
         }
 
-        df = pd.DataFrame(data=hourly_data)
+        df = pd.DataFrame(hourly_data)
+        df["forecast_date"] = df["time"].dt.strftime("%Y-%m-%d")
+        df = df[df["forecast_date"] == target_date]
 
         for _, row in df.iterrows():
-            weather_data.append(
+            all_rows.append(
                 {
-                    "latitude": float(response.Latitude()),
-                    "longitude": float(response.Longitude()),
-                    "elevation": float(response.Elevation()),
-                    "utc_offset_seconds": int(response.UtcOffsetSeconds()),
-                    "time": row["time"].isoformat(),
+                    "location_name": location["name"],
+                    "latitude": float(location["latitude"]),
+                    "longitude": float(location["longitude"]),
+                    "forecast_date": row["forecast_date"],
+                    "forecast_time": row["time"].isoformat(),
+                    "temperature_2m": float(row["temperature_2m"]),
+                    "precipitation": float(row["precipitation"]),
                     "wind_speed_10m": float(row["wind_speed_10m"]),
                     "cloud_cover": float(row["cloud_cover"]),
-                    "temperature_2m": float(row["temperature_2m"]),
                     "relative_humidity_2m": float(row["relative_humidity_2m"]),
-                    "precipitation": float(row["precipitation"]),
                 }
             )
 
-    return weather_data
+    return all_rows
 
 
 if __name__ == "__main__":
-    weather = fetch_weather()
-    print(f"Fetched {len(weather)} hourly weather rows")
+    rows = fetch_weather()
+    print(f"Fetched {len(rows)} weather rows")
 
-    if weather:
+    if rows:
         print("\nFirst row:")
-        for key, value in weather[0].items():
+        for key, value in rows[0].items():
             print(f"  {key}: {value}")
