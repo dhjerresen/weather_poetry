@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 import sqlite3
 
-from build_page import build_html, write_html
 from config import DOCS_INDEX_HTML, GROQ_MODEL, LATEST_POEM_TXT, LATEST_WEATHER_JSON, RUN_SUMMARY_JSON
 from fetch import fetch_weather
 from poem import generate_poem, summarize_weather_for_poem
