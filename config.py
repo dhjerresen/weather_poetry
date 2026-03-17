@@ -1,4 +1,3 @@
-# config.py
 from __future__ import annotations
 
 LOCATIONS = [
@@ -33,6 +32,5 @@ SQL_DB_PATH = "data/weather.db"
 LATEST_WEATHER_JSON = "outputs/latest_weather.json"
 LATEST_POEM_TXT = "outputs/latest_poem.txt"
 RUN_SUMMARY_JSON = "outputs/run_summary.json"
-DOCS_INDEX_HTML = "docs/index.html"
 
 GROQ_MODEL = "llama-3.3-70b-versatile"

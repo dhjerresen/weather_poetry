@@ -1,13 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Weather Poem</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automated Weather Pipeline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f7fbff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: #1f4e79;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+
+    .poem {
+      white-space: pre-wrap;
+      font-size: 1.05rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #eaf2f8;
+    }
+
+    .small {
+      color: #666;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
   <h1>Tomorrow's Weather Poem</h1>
-  <div id="poem">
-    <p>Poem will appear here.</p>
+  <p class="small">
+    This page is updated automatically by a GitHub Actions pipeline.
+  </p>
+
+  <div class="card">
+    <h2>Bilingual Poem</h2>
+    <div id="poem" class="poem">Loading poem...</div>
   </div>
+
+  <h2>Weather Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Avg Temp</th>
+        <th>Total Precipitation</th>
+        <th>Avg Wind</th>
+        <th>Avg Cloud Cover</th>
+        <th>Avg Humidity</th>
+      </tr>
+    </thead>
+    <tbody id="weather-table">
+      <tr>
+        <td colspan="7">Loading weather data...</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p id="updated-at" class="small"></p>
+
+  <script>
+    fetch("./data.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Could not load data.json");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        document.getElementById("poem").textContent = data.poem || "No poem available.";
+
+        const tableBody = document.getElementById("weather-table");
+        tableBody.innerHTML = "";
+
+        (data.weather || []).forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.location_name}</td>
+            <td>${row.forecast_date}</td>
+            <td>${row.avg_temp} °C</td>
+            <td>${row.total_precipitation} mm</td>
+            <td>${row.avg_wind_speed} km/h</td>
+            <td>${row.avg_cloud_cover} %</td>
+            <td>${row.avg_humidity} %</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+
+        const updatedAt = data.updated_at
+          ? `Last updated: ${data.updated_at}`
+          : "";
+        document.getElementById("updated-at").textContent = updatedAt;
+      })
+      .catch((error) => {
+        document.getElementById("poem").textContent =
+          "Could not load poem data.";
+        document.getElementById("weather-table").innerHTML = `
+          <tr>
+            <td colspan="7">Could not load weather data.</td>
+          </tr>
+        `;
+        document.getElementById("updated-at").textContent = error.message;
+      });
+  </script>
 </body>
 </html>
