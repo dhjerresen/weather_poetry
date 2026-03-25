@@ -1,6 +1,6 @@
 {
-    "updated_at": "2026-03-24T19:49:35.619985+00:00",
-    "poem": "Tomorrow's forecast shows a varied stage, \nFrederikshavn's clouds and wind turn the page, \nGjøl's chill and Hanstholm's gusts abound, \nbut for moose hunting, one spot's renowned. \nBest for moose hunting would be Gjøl's grounds, \nwith less wind, a hunter's steadier rounds.\n\nI morgen viser vejret en varieret scene, \nFrederikshavns skyer og vind blotter en side, \nGjøls kulde og Hansthols blæst er overalt, \nmen til elgjagt er Gjøl det bedste sted, \nbedst for elgjagt ville være Gjøls jord, \nmed mindre vind, en jægers mere stabile skud, \nog måske vil elgen også foretrække det sted, \nfordi det er det mindst vindfulde, og hun kan sårede fødder beholde.",
+    "updated_at": "2026-03-25T19:41:14.479578+00:00",
+    "poem": "In Frederikshavn, clouds abound, \nwhile Gjøl gets a drizzle all around, \nHanstholm's winds howl like a beast, \nbut which is best for moose hunting, at least?\nI'd choose Gjøl, where clouds part ways, \n Visibility's decent on a drizzly day.\n\nI Gjøl, skyerne åbner sig, \nmen Frederikshavn er alt for grå, \nHanstholms vinde hyler som en bjørn, \nGjøl er bedst for elgjagt, hvis man vælger med vejret, \nog elgen selv ville vælge en dag med lidt regn, \nså den kan gemme sig i skyggerne og spise kager - ja, elge elsker kager!",
     "weather": [
         {
             "location_name": "Frederikshavn",
@@ -75,6 +75,15 @@
             "avg_humidity": 86.9
         },
         {
+            "location_name": "Frederikshavn",
+            "forecast_date": "2026-03-26",
+            "avg_temp": 6.0,
+            "total_precipitation": 0.0,
+            "avg_wind_speed": 22.3,
+            "avg_cloud_cover": 52.7,
+            "avg_humidity": 66.7
+        },
+        {
             "location_name": "Gjøl",
             "forecast_date": "2026-03-18",
             "avg_temp": 8.5,
@@ -147,6 +156,15 @@
             "avg_humidity": 87.3
         },
         {
+            "location_name": "Gjøl",
+            "forecast_date": "2026-03-26",
+            "avg_temp": 5.3,
+            "total_precipitation": 0.0,
+            "avg_wind_speed": 30.1,
+            "avg_cloud_cover": 26.3,
+            "avg_humidity": 79.2
+        },
+        {
             "location_name": "Hanstholm",
             "forecast_date": "2026-03-18",
             "avg_temp": 8.2,
@@ -217,6 +235,15 @@
             "avg_wind_speed": 49.0,
             "avg_cloud_cover": 91.7,
             "avg_humidity": 88.8
+        },
+        {
+            "location_name": "Hanstholm",
+            "forecast_date": "2026-03-26",
+            "avg_temp": 4.6,
+            "total_precipitation": 0.0,
+            "avg_wind_speed": 45.9,
+            "avg_cloud_cover": 26.0,
+            "avg_humidity": 82.4
         }
     ]
 }
