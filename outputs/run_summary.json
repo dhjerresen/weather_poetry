@@ -1,7 +1,7 @@
 {
-    "timestamp": "2026-03-28T19:24:44.800187+00:00",
-    "weather_rows_fetched": 69,
-    "sql_inserted": 69,
+    "timestamp": "2026-03-29T19:27:04.426624+00:00",
+    "weather_rows_fetched": 66,
+    "sql_inserted": 66,
     "locations": [
         "Frederikshavn",
         "Frederikshavn",
@@ -15,6 +15,7 @@
         "Frederikshavn",
         "Frederikshavn",
         "Frederikshavn",
+        "Frederikshavn",
         "Gjøl",
         "Gjøl",
         "Gjøl",
@@ -27,6 +28,8 @@
         "Gjøl",
         "Gjøl",
         "Gjøl",
+        "Gjøl",
+        "Hanstholm",
         "Hanstholm",
         "Hanstholm",
         "Hanstholm",
